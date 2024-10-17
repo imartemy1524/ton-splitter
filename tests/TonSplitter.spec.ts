@@ -66,4 +66,27 @@ describe('TonSplitter', () => {
             });
         }
     });
+    it('should not send if not enough funds', async () => {
+        const addresses = Array.from({ length: 20 }, () => randomAddress());
+        const amounts = Array.from({ length: 20 }, () => BigInt(Math.floor(Number(toNano('10')) * Math.random())));
+        const map: Dictionary<bigint, Address> = Dictionary.empty();
+        for (let i = 0; i < addresses.length; i++) {
+            map.set(amounts[i], addresses[i]);
+        }
+        const { transactions } = await tonSplitter.send(
+            deployer.getSender(),
+            {
+                value: amounts.reduce((a, b) => a + b, 0n) - toNano('0.01'),
+            },
+            {
+                $$type: 'SplitTons',
+                to: map,
+            },
+        );
+        expect(transactions).toHaveTransaction({
+            from: deployer.address,
+            to: tonSplitter.address,
+            success: false,
+        });
+    })
 });
