@@ -45,7 +45,7 @@ describe('TonSplitter', () => {
         const { transactions } = await tonSplitter.send(
             deployer.getSender(),
             {
-                value: amounts.reduce((a, b) => a + b, 0n) + toNano('0.01') * BigInt(amounts.length) + toNano('1000.01'),
+                value: amounts.reduce((a, b) => a + b, 0n) + toNano('0.01') * BigInt(amounts.length) + toNano('0.01'),
             },
             {
                 $$type: 'SplitTons',
