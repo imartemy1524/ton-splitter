@@ -1,9 +1,10 @@
 import { toNano } from '@ton/core';
 import { TonSplitter } from '../wrappers/TonSplitter';
 import { NetworkProvider } from '@ton/blueprint';
+import { JettonSplitter } from '../build/JettonSplitter/tact_JettonSplitter';
 
 export async function run(provider: NetworkProvider) {
-    const tonSplitter = provider.open(await TonSplitter.fromInit(provider.sender().address!, 0n));
+    const tonSplitter = provider.open(await JettonSplitter.fromInit(provider.sender().address!, 0n));
 
     await tonSplitter.send(
         provider.sender(),
@@ -16,5 +17,5 @@ export async function run(provider: NetworkProvider) {
         }
     );
 
-    console.log('Deployed at', tonSplitter.address);
+    console.log('TON Jettons deployed at', tonSplitter.address);
 }

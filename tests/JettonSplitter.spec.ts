@@ -73,7 +73,7 @@ describe('JettonSplitter', () => {
         const { transactions } = await deployerJetton.send(
             deployer.getSender(),
             {
-                value: toNano('0.2') * BigInt(amounts.length) + toNano('0.01'),
+                value: toNano('0.16') * BigInt(amounts.length) + toNano('0.2'),
             },
             {
                 $$type: 'TokenTransfer',
@@ -82,7 +82,7 @@ describe('JettonSplitter', () => {
                 destination: tonSplitter.address,
                 response_destination: deployer.address,
                 custom_payload: null,
-                forward_ton_amount: toNano('0.19') * BigInt(amounts.length),
+                forward_ton_amount: toNano('0.16') * BigInt(amounts.length),
                 forward_payload: beginCell()
                     .store(
                         storeForwardPayload({
